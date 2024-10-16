@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  {% if user.is_organizer %}
+  <h2 class="mb-4">Events Organized by You</h2>
+  <div class="row">
+    {% for event in booked_events %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.title }}</h5>
+          <p class="card-text">Venue: {{ event.venue }}</p>
+          <p class="card-text">Date: {{ event.date }}</p>
+          <p class="card-text">Time: {{ event.time }}</p>
+          <p class="card-text">Price: {{ event.price }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <h2 class="mb-4">Events You've Booked</h2>
+  <div class="row">
+    {% for booking in booked_events %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ booking.event.title }}</h5>
+          <p class="card-text">Organizer: {{ booking.event.organizer.username }}</p>
+          <p class="card-text">Venue: {{ booking.event.venue }}</p>
+          <p class="card-text">Date: {{ booking.event.date }}</p>
+          <p class="card-text">Time: {{ booking.event.time }}</p>
+          <p class="card-text">Price: {{ booking.event.price }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
